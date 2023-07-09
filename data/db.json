@@ -1,0 +1,84 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Computer Ubuntu",
+      "price": 5600,
+      "quantity": 42,
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Printer",
+      "price": 3200,
+      "quantity": 4,
+      "selected": true,
+      "available": false
+    },
+    {
+      "id": 3,
+      "name": "SAMSUNG GALAXY L23",
+      "price": 4300,
+      "quantity": 22,
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Smart Phone",
+      "price": 4300,
+      "quantity": 13,
+      "selected": false,
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Smart Phone",
+      "price": 4300,
+      "quantity": 45,
+      "selected": false,
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Smart Phone",
+      "price": 4300,
+      "quantity": 33,
+      "selected": true,
+      "available": false
+    },
+    {
+      "id": 7,
+      "name": "Galaxy S23",
+      "price": 1419,
+      "quantity": 4,
+      "selected": false,
+      "available": false
+    },
+    {
+      "id": 8,
+      "name": "Galaxy S23",
+      "price": 1419,
+      "quantity": 44,
+      "selected": false,
+      "available": true
+    },
+    {
+      "id": 11,
+      "name": "Azerty",
+      "price": 12,
+      "quantity": 1,
+      "selected": true,
+      "available": true
+    },
+    {
+      "id": 12,
+      "name": "ADIDAS",
+      "price": 12341,
+      "quantity": 3,
+      "selected": true,
+      "available": true
+    }
+  ]
+}
