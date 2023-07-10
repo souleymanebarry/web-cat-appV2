@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <ul class="navbar navbar-nav">
+    <li>
+      <button (click)="fetchAllProducts()" class="btn btn-sm btn-outline-info ml-2">All</button>
+    </li>
+    <li>
+      <button (click)="selectedProducts()" class="btn btn-sm btn-outline-info ml-2">Selected</button>
+    </li>
+    <li>
+      <button (click)="availableProducts()" class="btn btn-sm btn-outline-info ml-2">Available</button>
+    </li>
+    <li>
+      <button (click)="createNewProduct()" class="btn btn-sm btn-outline-info ml-2">New Product</button>
+    </li>
+  </ul>
+  <ul class="navbar navbar-nav ml-auto">
+    <li>
+      <form class="form-inline" #f= "ngForm" (ngSubmit)="searchProducts(f.value)">
+        <input ngModel name="keyword" type="text" />
+        <button class="btn btn-sm btn-outline-info ml-2">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </li>
+  </ul>
+</nav>

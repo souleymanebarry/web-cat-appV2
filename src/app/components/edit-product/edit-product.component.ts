@@ -11,8 +11,8 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 export class EditProductComponent implements OnInit{
 
   public productId!: number;
-  productFormGroup!: FormGroup;
-  submitted = false;
+  public productFormGroup!: FormGroup;
+  public submitted = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private productsService: ProductsService,
@@ -44,6 +44,8 @@ export class EditProductComponent implements OnInit{
   }
 
   updateProduct() {
+    this.submitted = true;
+    if (this.productFormGroup.invalid) return;
     this.productsService.updateProduct(this.productFormGroup.value)
       .subscribe({
         next: value => {
