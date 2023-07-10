@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/Product.model";
 import {catchError, map, Observable, of, startWith} from "rxjs";
-import {AppDataState, DataStateEnum} from "../../state/product.state";
+import {ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes} from "../../state/product.state";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit{
+export class ProductsComponent {
 
   public products$: Observable<AppDataState<Product[]>> | null = null;
   public readonly DataStateEnum = DataStateEnum;
@@ -19,8 +19,6 @@ export class ProductsComponent implements OnInit{
               private router: Router) {
   }
 
-  ngOnInit(): void {
-  }
 
   public fetchAllProducts() {
     this.products$ = this.productsService.fetchAllProducts()
@@ -102,5 +100,27 @@ export class ProductsComponent implements OnInit{
         console.log("Navigation has failed!");
       }
     });
+  }
+
+  onActionEvent($event: ActionEvent) {
+    console.log($event);
+    switch ($event.type) {
+      case ProductActionsTypes.FETCH_ALL_PRODUCTS: this.fetchAllProducts();
+      break;
+      case ProductActionsTypes.SELECTED_PRODUCTS: this.selectedProducts();
+        break;
+      case ProductActionsTypes.AVAILABLE_PRODUCTS: this.availableProducts();
+        break;
+      case ProductActionsTypes.SEARCH_PRODUCTS: this.searchProducts($event.payload);
+        break;
+      case ProductActionsTypes.CREATE_NEW_PRODUCT: this.createNewProduct();
+        break;
+      case ProductActionsTypes.GET_SELECTED_PRODUCT: this.getSelectedProduct($event.payload);
+        break;
+      case ProductActionsTypes.EDIT_PRODUCT: this.editProduct($event.payload);
+        break;
+      case ProductActionsTypes.DELETE_PRODUCT: this.deleteProduct($event.payload);
+        break;
+    }
   }
 }
