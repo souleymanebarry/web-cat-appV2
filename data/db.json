@@ -34,7 +34,7 @@
     },
     {
       "id": 5,
-      "name": "Smart Phone",
+      "name": "Smart Phone AAA",
       "price": 4300,
       "quantity": 45,
       "selected": false,
@@ -79,6 +79,14 @@
       "quantity": 3,
       "selected": true,
       "available": true
+    },
+    {
+      "name": "AAA",
+      "price": 0,
+      "quantity": 0,
+      "selected": true,
+      "available": true,
+      "id": 13
     }
   ]
 }

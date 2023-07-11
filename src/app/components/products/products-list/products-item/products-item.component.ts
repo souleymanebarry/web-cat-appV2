@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ActionEvent, ProductActionsTypes} from "../../../../state/product.state";
+import {Component, Input} from '@angular/core';
+import {ProductActionsTypes} from "../../../../state/product.state";
 import {Product} from "../../../../model/Product.model";
+import {EventDriverService} from "../../../../services/event.driver.service";
 
 @Component({
   selector: 'app-products-item',
@@ -10,17 +11,20 @@ import {Product} from "../../../../model/Product.model";
 export class ProductsItemComponent {
 
   @Input() product!: Product;
-  @Output() productEventEmitter: EventEmitter<ActionEvent>= new EventEmitter();
+
+  constructor(private eventDriverService: EventDriverService) {
+  }
 
   getSelectedProduct(product: Product) {
-    this.productEventEmitter.emit({type: ProductActionsTypes.GET_SELECTED_PRODUCT, payload: product});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.GET_SELECTED_PRODUCT, payload: product});
   }
 
   deleteProduct(product: Product) {
-    this.productEventEmitter.emit({type: ProductActionsTypes.DELETE_PRODUCT, payload: product});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.DELETE_PRODUCT, payload: product});
   }
 
   editProduct(product: Product) {
-    this.productEventEmitter.emit({type: ProductActionsTypes.EDIT_PRODUCT, payload: product});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.EDIT_PRODUCT, payload: product});
+
   }
 }

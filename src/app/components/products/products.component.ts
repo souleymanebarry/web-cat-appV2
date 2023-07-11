@@ -1,24 +1,30 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductsService} from "../../services/products.service";
 import {Product} from "../../model/Product.model";
 import {catchError, map, Observable, of, startWith} from "rxjs";
 import {ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes} from "../../state/product.state";
 import {Router} from "@angular/router";
+import {EventDriverService} from "../../services/event.driver.service";
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit{
 
   public products$: Observable<AppDataState<Product[]>> | null = null;
   public readonly DataStateEnum = DataStateEnum;
 
   constructor(private productsService: ProductsService,
-              private router: Router) {
+              private router: Router,
+              private eventDriverService: EventDriverService) {
   }
-
+  ngOnInit(): void {
+    this.eventDriverService.sourceEventSubjectObservable.subscribe((actionEvent: ActionEvent)=>{
+      this.onActionEvent(actionEvent);
+    })
+  }
 
   public fetchAllProducts() {
     this.products$ = this.productsService.fetchAllProducts()
@@ -70,15 +76,15 @@ export class ProductsComponent {
 
   deleteProduct(product: Product) {
     if (confirm("Are you sure?"))
-    this.productsService.deleteProduct(product)
-      .subscribe({
-        next: Product => {
-          this.fetchAllProducts();
-        },
-        error: err => {
-          console.log("errorMessage: "+err);
-        },
-      })
+      this.productsService.deleteProduct(product)
+        .subscribe({
+          next: Product => {
+            this.fetchAllProducts();
+          },
+          error: err => {
+            console.log("errorMessage: "+err);
+          },
+        })
   }
 
   createNewProduct() {
@@ -102,11 +108,11 @@ export class ProductsComponent {
     });
   }
 
-  onActionEvent($event: ActionEvent) {
+  private onActionEvent($event: ActionEvent) {
     console.log($event);
     switch ($event.type) {
       case ProductActionsTypes.FETCH_ALL_PRODUCTS: this.fetchAllProducts();
-      break;
+        break;
       case ProductActionsTypes.SELECTED_PRODUCTS: this.selectedProducts();
         break;
       case ProductActionsTypes.AVAILABLE_PRODUCTS: this.availableProducts();
@@ -123,4 +129,5 @@ export class ProductsComponent {
         break;
     }
   }
+
 }

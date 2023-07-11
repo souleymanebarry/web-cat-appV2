@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProductsService} from "../../services/products.service";
+import {EventDriverService} from "../../services/event.driver.service";
+import {ProductActionsTypes} from "../../state/product.state";
 
 @Component({
   selector: 'app-new-product',
@@ -13,7 +15,8 @@ export class NewProductComponent implements OnInit{
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService) {
+              private productsService: ProductsService,
+              private eventDriverService: EventDriverService) {
   }
 
   get fields(): { [key: string]: AbstractControl } {
@@ -36,7 +39,8 @@ export class NewProductComponent implements OnInit{
     this.productsService.saveProduct(this.productFormGroup.value)
       .subscribe({
         next: value => {
-            alert('Save successfully!')
+          this.eventDriverService.publishEvent({type: ProductActionsTypes.PRODUCT_ADDED});
+          alert('Save successfully!')
         },
         error: err => {
           console.log(err);

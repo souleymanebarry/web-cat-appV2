@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ActionEvent, ProductActionsTypes} from "../../../state/product.state";
+import {EventDriverService} from "../../../services/event.driver.service";
 
 @Component({
   selector: 'app-products-nav-bar',
@@ -8,25 +9,28 @@ import {ActionEvent, ProductActionsTypes} from "../../../state/product.state";
 })
 export class ProductsNavBarComponent {
 
-  @Output() productEventEmitter: EventEmitter<ActionEvent>= new EventEmitter<ActionEvent>();
+ // @Output() productEventEmitter: EventEmitter<ActionEvent>= new EventEmitter<ActionEvent>();
+
+  constructor(private eventDriverService: EventDriverService) {
+  }
 
   fetchAllProducts() {
-    this.productEventEmitter.emit({type: ProductActionsTypes.FETCH_ALL_PRODUCTS});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.FETCH_ALL_PRODUCTS});
   }
 
   selectedProducts() {
-    this.productEventEmitter.emit({type: ProductActionsTypes.SELECTED_PRODUCTS});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.SELECTED_PRODUCTS});
   }
 
   availableProducts() {
-    this.productEventEmitter.emit({type: ProductActionsTypes.AVAILABLE_PRODUCTS});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.AVAILABLE_PRODUCTS});
   }
 
   createNewProduct() {
-    this.productEventEmitter.emit({type: ProductActionsTypes.CREATE_NEW_PRODUCT});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.CREATE_NEW_PRODUCT});
   }
 
   searchProducts(keyword: any) {
-    this.productEventEmitter.emit({type: ProductActionsTypes.SEARCH_PRODUCTS, payload:keyword});
+    this.eventDriverService.publishEvent({type: ProductActionsTypes.SEARCH_PRODUCTS, payload:keyword});
   }
 }

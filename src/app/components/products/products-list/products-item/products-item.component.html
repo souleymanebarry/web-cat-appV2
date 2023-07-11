@@ -5,7 +5,9 @@
   <td>{{product.price}}</td>
   <td>{{product.quantity}}</td>
   <td>{{product.selected}}</td>
-  <td>{{product.available}}</td>
+  <td>
+    <i [ngClass]="product.available?'fa fa-check text-success': 'fa fa-circle text-success'"></i>
+  </td>
 
   <td>
     <button [ngClass]="product.selected?'btn btn-sm btn-outline-success':'btn btn-sm btn-outline-danger'"

@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ActionEvent, AppDataState, DataStateEnum} from "../../../state/product.state";
+import {Component, Input} from '@angular/core';
+import {AppDataState, DataStateEnum} from "../../../state/product.state";
 import {Observable} from "rxjs";
 import {Product} from "../../../model/Product.model";
 
@@ -12,9 +12,5 @@ export class ProductsListComponent {
 
   readonly DataStateEnum = DataStateEnum;
   @Input() productsInput$: Observable<AppDataState<Product[]>> | null = null;
-  @Output() productEventEmitter: EventEmitter<ActionEvent>= new EventEmitter();
 
-  onActionEvent($event: ActionEvent) {
-    this.productEventEmitter.emit($event);
-  }
 }
